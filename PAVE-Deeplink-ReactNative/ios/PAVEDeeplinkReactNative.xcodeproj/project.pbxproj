@@ -145,7 +145,6 @@
 				19E77A7E785906BFD014D596 /* Pods-PAVEDeeplinkReactNative-PAVEDeeplinkReactNativeTests.debug.xcconfig */,
 				A755F7BB307ABE74CB134E6E /* Pods-PAVEDeeplinkReactNative-PAVEDeeplinkReactNativeTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

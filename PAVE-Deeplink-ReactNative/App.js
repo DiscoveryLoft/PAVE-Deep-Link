@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
-import {Linking} from 'react-native';
+import {Linking, Platform} from 'react-native';
 
 import {View, Text} from 'react-native';
 
@@ -17,7 +17,7 @@ const App = () => {
 
   function handleURL(event) {
     setUrl(event.url);
-    console.log('url ======> ' + event.url);
+    console.log(Platform.OS + ' - url ======> ' + event.url);
   }
 
   return (
