@@ -1,18 +1,17 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
 import {Linking} from 'react-native';
 
-import {View, Text} from 'react-native';
-import {TouchableOpacity} from 'react-native';
+import {View, Text, Button} from 'react-native';
 
 const App = () => {
-  const [url, setUrl] = useState('');
+  const API_KEY = 'YOUR-API-KEY'; /* <====== PUT YOUR API KEY HERE */
 
-  const API_KEY = 'fddb6f33-c882-4042-976c-f10b0abdeee8';
+  const REDIRECT_URL = 'pave://'; /* DO NOT EDIT THIS */
 
-  const REDIRECT_URL = 'pave://';
-
-  const [sessionID, setSessionID] = useState('--');
-  const [redirectUrl, setRedirectUrl] = useState('--');
+  const [sessionID, setSessionID] = useState('');
+  const [redirectUrl, setRedirectUrl] = useState('');
+  const [receivedUrl, setReceivedUrl] = useState('');
 
   useEffect(() => {
     Linking.getInitialURL()
@@ -23,7 +22,7 @@ const App = () => {
   }, []);
 
   function handleURL(event) {
-    setUrl(event.url);
+    setReceivedUrl(event.url);
     console.log('url ======> ' + event.url);
   }
 
@@ -55,52 +54,58 @@ const App = () => {
   };
 
   return (
-    <View style={{justifyContent: 'center', flex: 1, alignItems: 'center'}}>
-      <Text>PAVE DEEP LINK: {url}</Text>
-
+    <View
+      style={{
+        justifyContent: 'center',
+        flex: 1,
+        alignItems: 'flex-start',
+        padding: 20,
+        backgroundColor: 'white',
+      }}>
+      <Text
+        style={{
+          fontWeight: 'bold',
+          fontSize: 22,
+          alignItems: 'center',
+          textAlign: 'center',
+          justifyContent: 'center',
+          marginBottom: 50,
+        }}>
+        PAVE DEEP LINK
+      </Text>
+      <View style={{height: 10}} />
       <View>
-        <TouchableOpacity
-          onPress={generateSessionID}
-          style={[
-            {
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: 140,
-              elevation: 4,
-              height: 50,
-              backgroundColor: 'green',
-              borderRadius: 40,
-            },
-          ]}>
-          <Text style={{color: 'white'}}>Create Session</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View>
-        <Text>SessionID</Text>
+        <Text style={{fontWeight: 'bold'}}>SessionID</Text>
         <Text>{sessionID}</Text>
       </View>
-
+      <View style={{height: 10}} />
       <View>
-        <Text>URL_REDIRECT: {redirectUrl}</Text>
+        <Text style={{fontWeight: 'bold'}}>SEND REDIRECT_URL:</Text>
+        <Text>{redirectUrl}</Text>
+      </View>
+      <View style={{height: 10}} />
+      <View>
+        <Text style={{fontWeight: 'bold'}}>RECEIVED REDIRECT_URL:</Text>
+        <Text>{receivedUrl}</Text>
       </View>
 
-      <View>
-        <TouchableOpacity
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          marginTop: 50,
+        }}>
+        <Button
+          title="Create Session"
+          disabled={sessionID !== ''}
+          onPress={generateSessionID}
+        />
+        <View style={{width: 10}} />
+        <Button
+          title="Get Started"
+          disabled={sessionID === ''}
           onPress={routeToPaveCapture}
-          style={[
-            {
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: 140,
-              elevation: 4,
-              height: 50,
-              backgroundColor: 'green',
-              borderRadius: 40,
-            },
-          ]}>
-          <Text style={{color: 'white'}}>Get Started</Text>
-        </TouchableOpacity>
+        />
       </View>
     </View>
   );
